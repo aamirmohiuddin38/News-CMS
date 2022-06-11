@@ -22,7 +22,7 @@
                 VALUES ('{$fname}','{$lname}','{$user}','{$pswd}','{$role}')";
         if(mysqli_query($conn,$sql1)){
             // Redirect
-            header("Location: http://localhost/NewsBLOG/admin/users.php");
+            header("Location: {$hostname}/admin/users.php");
         }
     }
     }
