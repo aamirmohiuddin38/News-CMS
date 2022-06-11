@@ -1,4 +1,33 @@
 <?php include "header.php"; ?>
+
+<?php 
+    if(isset($_POST['save'])){
+        // Making Connection to Database
+        include "config.php";
+        // Prepare data
+        $fname = mysqli_real_escape_string($conn,$_POST['fname']);
+        $lname = mysqli_real_escape_string($conn,$_POST['lname']);
+        $user = mysqli_real_escape_string($conn,$_POST['user']);
+        $pswd = mysqli_real_escape_string($conn,md5($_POST['password']));
+        $role = mysqli_real_escape_string($conn,$_POST['role']);
+
+    // Check if username already exists or not
+    $sql = "SELECT username FROM user WHERE username = '{$user}'";
+    $result = mysqli_query($conn, $sql) or die("Query Failed");
+    if(mysqli_num_rows($result)>0){
+        echo "<h4> Username Already Exists! Try another one.. </h4>";
+    }else{
+        // Add user to database
+        $sql1 = "INSERT INTO user (first_name, last_name, username, password, role)
+                VALUES ('{$fname}','{$lname}','{$user}','{$pswd}','{$role}')";
+        if(mysqli_query($conn,$sql1)){
+            // Redirect
+            header("Location: http://localhost/NewsBLOG/admin/users.php");
+        }
+    }
+    }
+?>
+
   <div id="admin-content">
       <div class="container">
           <div class="row">
@@ -7,7 +36,7 @@
               </div>
               <div class="col-md-offset-3 col-md-6">
                   <!-- Form Start -->
-                  <form  action="" method ="POST" autocomplete="off">
+                  <form  action="<?php $_SERVER['PHP_SELF'] ?>" method ="POST" autocomplete="off">
                       <div class="form-group">
                           <label>First Name</label>
                           <input type="text" name="fname" class="form-control" placeholder="First Name" required>
