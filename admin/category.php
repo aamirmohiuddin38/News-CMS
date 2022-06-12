@@ -12,7 +12,14 @@
                     <?php
                     // DataBase Configuration
                     include "config.php";
-                    $sql = "SELECT * FROM category ORDER BY category_id DESC";
+                    if(isset($_GET['page'])){
+                        $page = $_GET['page'];
+                    }else{
+                        $page = 1;
+                    }
+                    $limit = 3;
+                    $offset = ($page - 1) * $limit;
+                    $sql = "SELECT * FROM category ORDER BY category_id DESC LIMIT {$offset},{$limit}";
                     $result = mysqli_query($conn, $sql) or die("Query Failed");
                     if(mysqli_num_rows($result)>0){
                     ?>
@@ -39,11 +46,30 @@
                 <?php 
                     } 
                 ?>
-                <ul class='pagination admin-pagination'>
-                    <li class="active"><a>1</a></li>
-                    <li><a>2</a></li>
-                    <li><a>3</a></li>
-                </ul>
+                <?php
+                $sql = "SELECT * FROM category";
+                $result = mysqli_query($conn, $sql) or die("Query Failed");
+                if(mysqli_num_rows($result)>0){
+                    $total_records = mysqli_num_rows($result);
+                    $total_pages = ceil($total_records/$limit);
+                    echo "<ul class='pagination admin-pagination'>";
+                    if($page>1){
+                        echo '<li><a href="category.php?page='.($page-1).'"> << </a></li>';
+                    }
+                    for($i = 1; $i <= $total_pages; $i++){
+                        if($i == $page){
+                            $active = "active";
+                        }else{
+                            $active = "";
+                        }
+                        echo '<li class="'. $active .'"><a href="category.php?page='.$i.'">'. $i.'</a></li>';
+                    }
+                    if($total_pages > $page){
+                        echo '<li><a href="users.php?page='.($page+1).'"> >> </a></li>';
+                    }
+                    echo "</ul>";
+                }
+                ?>             
             </div>
         </div>
     </div>
