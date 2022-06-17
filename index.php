@@ -5,6 +5,7 @@
                 <div class="col-md-8">
                     <!-- post-container -->
                     <div class="post-container">
+                    <h2 class="page-heading">All News</h2>
                         <?php
                             include "config.php";
                             if(isset($_GET['page'])){
