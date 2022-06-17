@@ -6,17 +6,17 @@
                     <!-- post-container -->
                     <div class="post-container">
                         <?php
+                            include "config.php";
+                            if(isset($_GET['cid'])){
+                                $cat_id = $_GET['cid'];
+                            }
+                        
                             $sql1 = "SELECT * FROM category WHERE category_id = {$cat_id}";
                             $result1 = mysqli_query($conn, $sql1) or die("Query Failed");
                             $row1 = mysqli_fetch_assoc($result1);
                         ?>
                         <h2 class="page-heading"><?php echo $row1['category_name'] ?></h2>
                     <?php
-                            include "config.php";
-                            if(isset($_GET['cid'])){
-                                $cat_id = $_GET['cid'];
-                            }
-
                             if(isset($_GET['page'])){
                                 $page = $_GET['page'];
                             }else{
