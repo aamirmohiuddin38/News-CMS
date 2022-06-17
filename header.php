@@ -44,6 +44,7 @@
                     if(mysqli_num_rows($result)>0){
                 ?>
                 <ul class='menu'>
+                <li><a href="<?php echo $hostname ?>">Home</a></li>
                         <?php while($row = mysqli_fetch_assoc($result)){ 
                             $active = "";
                             if(isset($_GET['cid'])){
