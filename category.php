@@ -5,6 +5,12 @@
                 <div class="col-md-8">
                     <!-- post-container -->
                     <div class="post-container">
+                        <?php
+                            $sql1 = "SELECT * FROM category WHERE category_id = {$cat_id}";
+                            $result1 = mysqli_query($conn, $sql1) or die("Query Failed");
+                            $row1 = mysqli_fetch_assoc($result1);
+                        ?>
+                        <h2 class="page-heading"><?php echo $row1['category_name'] ?></h2>
                     <?php
                             include "config.php";
                             if(isset($_GET['cid'])){
@@ -64,12 +70,9 @@
                                     }
                         ?>
                         <?php
-                $sql1 = "SELECT post FROM category WHERE category_id = {$cat_id}";
-                $result1 = mysqli_query($conn, $sql1) or die("Query Failed");
-                $row = mysqli_fetch_assoc($result1);
 
                 if(mysqli_num_rows($result1)>0){
-                    $total_records = $row['post'];
+                    $total_records = $row1['post'];
                     $total_pages = ceil($total_records/$limit);
                     echo "<ul class='pagination admin-pagination'>";
                     if($page>1){
