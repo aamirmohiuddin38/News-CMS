@@ -69,7 +69,19 @@
         <div class="row">
             <!-- LOGO -->
             <div class=" col-md-offset-4 col-md-4">
-                <a href="index.php" id="logo"><img src="images/news.jpg"></a>
+                <?php
+                    $sql = "SELECT * FROM settings";
+                    $result = mysqli_query($conn, $sql) or die("Query Failed.");
+                    if(mysqli_num_rows($result) > 0){
+                        while($row = mysqli_fetch_assoc($result)) {
+                            if($row['mainlogo'] == ""){
+                                echo '<a href="index.php"><h1>'.$row['sitename'].'</h1></a>';
+                            }else{
+                            echo '<a href="index.php" id="logo"><img src="admin/images/'.$row['mainlogo'].'"></a>';
+                            }
+                        }
+                    }
+                ?>
             </div>
             <!-- /LOGO -->
         </div>
