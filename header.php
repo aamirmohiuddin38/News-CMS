@@ -1,3 +1,50 @@
+<?php
+    // echo $_SERVER['PHP_SELF'];
+    include "config.php";
+    $page = basename($_SERVER['PHP_SELF']);
+    // echo $page;
+    switch($page){
+        case "single.php":
+            if(isset($_GET['id'])){
+                $sql_title = "SELECT * FROM post where post_id = {$_GET['id']}";
+                $result_title = mysqli_query($conn, $sql_title) or die("Title Query Failed");
+                $row_title = mysqli_fetch_assoc($result_title);
+                $page_title = $row_title['title'];
+            }else{
+                $page_title = "Not Found";
+            }
+            break;
+        case "category.php":
+            if(isset($_GET['cid'])){
+                $sql_title = "SELECT * FROM category where category_id = {$_GET['cid']}";
+                $result_title = mysqli_query($conn, $sql_title) or die("Title Query Failed");
+                $row_title = mysqli_fetch_assoc($result_title);
+                $page_title = $row_title['category_name'] . " News";
+            }else{
+                $page_title = "Not Found";
+            }
+            break;
+        case "author.php":
+            if(isset($_GET['authid'])){
+                $sql_title = "SELECT * FROM user where user_id = {$_GET['authid']}";
+                $result_title = mysqli_query($conn, $sql_title) or die("Title Query Failed");
+                $row_title = mysqli_fetch_assoc($result_title);
+                $page_title ="News By " .$row_title['username'];
+            }else{
+                $page_title = "Not Found";
+            }
+            break;
+        case "search.php":
+            if(isset($_GET['search'])){
+                $page_title = $_GET['search'];
+            }else{
+                $page_title = "No Result Found";
+            }
+            break;
+        default:
+            $page_title = "NewsBLOG";
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +52,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>News</title>
+    <title><?php echo $page_title ?></title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <!-- Font Awesome Icon -->
