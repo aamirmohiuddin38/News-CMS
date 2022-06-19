@@ -52,6 +52,7 @@
                                     }
                                 ?>
                     </select>
+                    <input type="hidden" name="old_category" value="<?php echo $row['category']; ?>">
                 </div>
                 <div class="form-group">
                     <label for="">Post image</label>
