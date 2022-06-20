@@ -45,9 +45,12 @@
                             <th>Delete</th>
                         </thead>
                         <tbody>
-                        <?php while($row = mysqli_fetch_assoc($result)){ ?>
+                        <?php
+                        $serial = $offset + 1;
+                        while($row = mysqli_fetch_assoc($result)){
+                        ?>
                             <tr>
-                                <td class='id'><?php echo $row['post_id'] ?></td>
+                                <td class='id'><?php echo $serial ?></td>
                                 <td><?php echo $row['title'] ?></td>
                                 <td><?php echo $row['category_name'] ?></td>
                                 <td><?php echo $row['post_date'] ?></td>
@@ -55,7 +58,9 @@
                                 <td class='edit'><a href='update-post.php?id=<?php echo $row['post_id'] ?>'><i class='fa fa-edit'></i></a></td>
                                 <td class='delete'><a href='delete-post.php?id=<?php echo $row['post_id']?>&catid=<?php echo $row['category'] ?>'><i class='fa fa-trash-o'></i></a></td>
                             </tr>
-                            <?php } ?>
+                            <?php 
+                            $serial++;
+                        } ?>
                         </tbody>
                     </table>
                     <?php 
