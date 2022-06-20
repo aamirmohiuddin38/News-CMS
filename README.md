@@ -1,4 +1,4 @@
 # News-CMS
 
-This project is taken from the site yahoobaba.com for the practice purpose.
+* The template of this project is taken from the site yahoobaba.com for PHP practice purpose.
 Thank YOU!!
